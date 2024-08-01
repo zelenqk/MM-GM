@@ -6,26 +6,26 @@
 ## Key Features:
 
 
-# Object Manipulation:
+Object Manipulation:
     Select 3D objects directly in the view.
     Add objects by dragging them from the asset browser into the view.
 
-# Camera Controls:
+Camera Controls:
     Adjust camera speed using the mouse scroll or arrow keys.
     Activate Freecam by right-clicking and holding on the view.
 
-# Editing Tools:
+Editing Tools:
 
     Undo (Ctrl + Z) and Redo (Ctrl + Y) actions.
     Save your progress quickly with Ctrl + S.
     Press "A" to switch to position mode
     Press "S" to switch to scaling mode
 
-# File Management:
+File Management:
     Export your map through the File menu, generating a ZIP file that contains data.json and the associated 3D models.
     Import 3D models via the File menu for easy integration into your project.
 
-##Maps are saved as a ZIP file containing:
+Maps are saved as a ZIP file containing:
 
     data.json: Defines the placement, scale, and rotation of objects.
     Models Folder: Stores all 3D models with their textures and materials. Ensure filenames match, as mismatches currently prevent proper export.
