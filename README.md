@@ -1,28 +1,28 @@
-MM-GM is a versatile 3D map-making tool built in GameMaker, designed to streamline the creation of immersive environments using the SMF (Snidr Model Format) and Colmesh for collision handling, both developed by Snidr.
+#MM-GM is a versatile 3D map-making tool built in GameMaker, designed to streamline the creation of immersive environments using the SMF (Snidr Model Format) and Colmesh for collision handling, both developed by Snidr.
 Key Features:
 
-    Object Manipulation:
-        Select 3D objects directly in the view.
-        Add objects by dragging them from the asset browser into the view.
+Object Manipulation:
+    Select 3D objects directly in the view.
+    Add objects by dragging them from the asset browser into the view.
 
-    Camera Controls:
-        Adjust camera speed using the mouse scroll or arrow keys.
-        Activate Freecam by right-clicking and holding on the view.
+Camera Controls:
+    Adjust camera speed using the mouse scroll or arrow keys.
+    Activate Freecam by right-clicking and holding on the view.
 
-    Editing Tools:
-        Undo (Ctrl + Z) and Redo (Ctrl + Y) actions.
-        Save your progress quickly with Ctrl + S.
+Editing Tools:
+    Undo (Ctrl + Z) and Redo (Ctrl + Y) actions.
+    Save your progress quickly with Ctrl + S.
 
-    File Management:
-        Export your map through the File menu, generating a ZIP file that contains data.json and the associated 3D models.
-        Import 3D models via the File menu for easy integration into your project.
+File Management:
+    Export your map through the File menu, generating a ZIP file that contains data.json and the associated 3D models.
+    Import 3D models via the File menu for easy integration into your project.
 
 Data Format:
 
 Maps are saved as a ZIP file containing:
 
-    data.json: Defines the placement, scale, and rotation of objects.
-    Models Folder: Stores all 3D models with their textures and materials. Ensure filenames match, as mismatches currently prevent proper export.
+data.json: Defines the placement, scale, and rotation of objects.
+Models Folder: Stores all 3D models with their textures and materials. Ensure filenames match, as mismatches currently prevent proper export.
 
 Example of an array entry that is inside of data.json
 
