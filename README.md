@@ -47,3 +47,7 @@ Maps are saved as a ZIP file containing:
         "path": "models/tree/tree.obj"
       }
     }
+
+# Extras
+
+Comes with a complimentary cube.obj!
