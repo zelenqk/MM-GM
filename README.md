@@ -12,6 +12,8 @@ Camera Controls:
 Editing Tools:
     Undo (Ctrl + Z) and Redo (Ctrl + Y) actions.
     Save your progress quickly with Ctrl + S.
+    Press "A" to switch to position mode
+    Press "S" to switch to scaling mode
 
 File Management:
     Export your map through the File menu, generating a ZIP file that contains data.json and the associated 3D models.
