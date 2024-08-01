@@ -42,6 +42,9 @@ Maps are saved as a ZIP file containing:
       "xRotation": 45.0,
       "yRotation": 0.0,
       "zRotation": 90.0,
+      "customVariables": {
+        "varName": varValue    //When setting the value in the mapmaker it will check if the value can be real (integer) if not it will be a string
+        }
       "model": {
         "name": "tree",
         "path": "models/tree/tree.obj"
