@@ -10,6 +10,7 @@ Camera Controls:
     Activate Freecam by right-clicking and holding on the view.
 
 Editing Tools:
+
     Undo (Ctrl + Z) and Redo (Ctrl + Y) actions.
     Save your progress quickly with Ctrl + S.
     Press "A" to switch to position mode
