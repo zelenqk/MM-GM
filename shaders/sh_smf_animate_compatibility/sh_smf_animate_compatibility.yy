@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"sh_smf_animate_compatibility",
+  "name":"sh_smf_animate_compatibility",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/SNIDR/SMF/Shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

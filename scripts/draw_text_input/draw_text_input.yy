@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"draw_text_input",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"draw_text_input",
+  "parent":{
+    "name":"input",
+    "path":"folders/Scripts/UI/input.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

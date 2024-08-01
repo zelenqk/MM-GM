@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"export_map",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"export_map",
+  "parent":{
+    "name":"util",
+    "path":"folders/Scripts/util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

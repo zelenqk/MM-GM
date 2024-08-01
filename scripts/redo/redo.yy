@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"redo",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"redo",
+  "parent":{
+    "name":"actions",
+    "path":"folders/Scripts/util/actions.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

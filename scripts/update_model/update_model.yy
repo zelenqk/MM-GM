@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"update_model",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"update_model",
+  "parent":{
+    "name":"models",
+    "path":"folders/Scripts/util/models.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

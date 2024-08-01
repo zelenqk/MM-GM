@@ -1,0 +1,1 @@
+cm_remove(editor.level, collisionMesh);

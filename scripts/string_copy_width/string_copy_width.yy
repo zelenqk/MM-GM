@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"string_copy_width",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"string_copy_width",
+  "parent":{
+    "name":"util",
+    "path":"folders/Scripts/util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

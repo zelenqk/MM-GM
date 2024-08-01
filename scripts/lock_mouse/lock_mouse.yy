@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"lock_mouse",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"lock_mouse",
+  "parent":{
+    "name":"raycast",
+    "path":"folders/Scripts/util/raycast.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

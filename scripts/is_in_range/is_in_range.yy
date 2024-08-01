@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"is_in_range",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"is_in_range",
+  "parent":{
+    "name":"input",
+    "path":"folders/Scripts/UI/input.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

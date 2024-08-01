@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"sh_smf_color",
+  "name":"sh_smf_color",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/SNIDR/SMF/Shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

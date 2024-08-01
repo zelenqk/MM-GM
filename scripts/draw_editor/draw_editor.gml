@@ -1,0 +1,60 @@
+// Script assets have changed for v2.3.0 see
+// https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
+function draw_editor(){
+	if (mouse_check_button_pressed(mb_right) and point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), view.x, view.y, view.x + view.width, view.y + view.height)){
+        view.enabled = true;
+        window_mouse_set_locked(true);
+    }
+	
+	if (mouse_check_button_released(mb_right)){
+		view.enabled = false;
+        window_mouse_set_locked(false);
+	}
+	
+	view.spd += (keyboard_check(vk_up) - keyboard_check(vk_down) * delta) / 10;
+	
+	if (view.enabled){
+		view.lookDir -= window_mouse_get_delta_x() / 10;
+		view.lookDir = (view.lookDir % 360);
+		
+        view.lookPitch -= window_mouse_get_delta_y() / 10;
+        view.lookPitch = clamp(view.lookPitch, -90, 90);
+        
+		view.spd += (mouse_wheel_up() - mouse_wheel_down()) * delta;
+		view.spd = clamp(view.spd, 0, view.spd + 1)
+		
+		var forwardX = dcos(view.lookDir);
+		var forwardY = dsin(view.lookDir);
+		var forwardZ = dsin(view.lookPitch);
+		
+		var rightX = dcos(view.lookDir + 90);
+		var rightY = dsin(view.lookDir + 90);
+		
+        var strafeSpeed = view.spd * (keyboard_check(ord("A")) - keyboard_check(ord("D")));
+        var moveSpeed = view.spd * (keyboard_check(ord("S")) - keyboard_check(ord("W"))) * (!keyboard_check(vk_control));
+        var elevateSpeed = view.spd * (keyboard_check(vk_space) - keyboard_check(vk_shift));
+        
+		// Apply movement based on calculated vectors
+        view.camX += (moveSpeed * forwardX - strafeSpeed * rightX) * delta;
+        view.camY += (moveSpeed * forwardY - strafeSpeed * rightY) * delta;
+        view.camZ += (elevateSpeed) * delta;
+		
+		var xTo = view.camX - forwardX * dcos(view.lookPitch);
+		var yTo = view.camY - forwardY * dcos(view.lookPitch);
+		var zTo = view.camZ + forwardZ;
+		
+		var salting = (view.lookPitch <= -90) - (view.lookPitch >= 90);
+		
+		upX = dcos(view.lookDir) * salting;
+		upY = dsin(view.lookDir) * salting;
+		upZ = -1;
+		
+		camera_set_view_mat(view_camera[0], matrix_build_lookat(view.camX, view.camY, view.camZ, xTo, yTo, zTo, upX, upY, upZ));
+	}
+	
+	if (surface_exists(view_surface_id[0])){
+		draw_surface(view_surface_id[0], view.x, view.y);
+	}else if (window_has_focus()){
+		view_surface_id[0] = surface_create_c(view.width, view.height);
+	}
+}

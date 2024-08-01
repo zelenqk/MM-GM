@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"smf_instance",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"smf_instance",
+  "parent":{
+    "name":"SMF",
+    "path":"folders/SNIDR/SMF.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"surface_create_c",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"surface_create_c",
+  "parent":{
+    "name":"surfaces",
+    "path":"folders/Scripts/UI/surfaces.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
