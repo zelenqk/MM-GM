@@ -1,4 +1,4 @@
-### MM-GM is a versatile 3D map-making tool built in GameMaker, designed to streamline the creation of immersive environments using the SMF (Snidr Model Format) and Colmesh for collision handling, both developed by Snidr.
+### MM-GM is a 3D map-making tool built in GameMaker, designed to streamline the creation of environments using the SMF (Snidr Model Format) and Colmesh for collision handling, both developed by Snidr.
 Key Features:
 
 Object Manipulation:
