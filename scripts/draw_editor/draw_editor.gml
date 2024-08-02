@@ -53,6 +53,7 @@ function draw_editor(){
 	}
 	
 	if (surface_exists(view_surface_id[0])){
+		
 		draw_surface(view_surface_id[0], view.x, view.y);
 	}else if (window_has_focus()){
 		view_surface_id[0] = surface_create_c(view.width, view.height);

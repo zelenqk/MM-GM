@@ -55,8 +55,12 @@ function export_map(){
 			"xScale": xScale,
 			"yScale": yScale,
 			"zScale": zScale,
-			"customVariables": customVariables,
+			"customVariables": {},
 			"model": noone,
+		}
+		
+		for(var u = 0; u < array_length(customVariables); u++){
+			variable_struct_set(object.customVariables, customVariables[i].name, customVariables[i].value);
 		}
 		
 		if (ds_map_exists(modelNames, model.path)){

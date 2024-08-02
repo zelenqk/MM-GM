@@ -2,7 +2,13 @@
 
 gpu_set_ztestenable(true);
 gpu_set_zwriteenable(true);
-gpu_set_cullmode(cull_counterclockwise);
+
+gpu_set_alphatestenable(true);
+gpu_set_alphatestref(10);
+
+gpu_set_tex_repeat(true);
+//gpu_set_tex_mip_enable(true);
+
 
 globalvar delta, projectPath, editor;
 

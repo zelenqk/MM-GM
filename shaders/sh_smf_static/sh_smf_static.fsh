@@ -11,4 +11,8 @@ varying float v_vRim;
 void main()
 {
     gl_FragColor = texture2D(gm_BaseTexture, v_vTexcoord);
+	
+	if (gl_FragColor.a < 0.1){
+		discard;	
+	}
 }

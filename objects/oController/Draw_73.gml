@@ -1,3 +1,3 @@
 if (room = rmEditor){
-	draw_editor_gizmos();
+	draw_editor_gizmos()	
 }

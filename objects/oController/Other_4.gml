@@ -32,6 +32,7 @@ case rmEditor:
 		"selected": noone,
 		"level": cm_octree(128),
 		"saved": true,
+		"clipboard": noone,
 		"undo": [],
 		"redo": [],
 		"viewCam": {
@@ -49,7 +50,7 @@ case rmEditor:
 	var mapDataF = file_text_open_read(projectPath + "/data.json");
 	var mapData = json_parse(file_text_read_string(mapDataF));
 	file_text_close(mapDataF);
-	
+
 	for(var i = 0; i < array_length(mapData.models); i++){
 		var model = mapData.models[i];
 		
@@ -59,9 +60,8 @@ case rmEditor:
 	for(var i = 0; i < array_length(mapData.objects); i++){
 		var object = mapData.objects[i];
 		
-		instance_create_depth(object.x, object.y, -1, oModel, object);
+		instance_create_depth(object.x, object.y, -object.z, oModel, object);
 	}
 
-	window_set_cursor(cr_arrow);
 	break;
 }

@@ -419,6 +419,13 @@ function initiate_ui(){
 					"col": cm_load_obj("EDITOR/scaler.obj"),
 					"cm": cm_list(),
 				}
+			},
+			"rotation": {
+				"base": {
+					"smf": smf_model_load("EDITOR/torus.obj"),
+					"col": cm_load_obj("EDITOR/torus.obj"),
+					"cm": cm_list(),
+				}
 			}
 		}
 		
@@ -449,5 +456,19 @@ function initiate_ui(){
 		cm_custom_parameter_set(editor.gizmos.scale.x, "x");
 		cm_custom_parameter_set(editor.gizmos.scale.y, "y");
 		cm_custom_parameter_set(editor.gizmos.scale.z, "z");
+		
+		editor.gizmos.rotation.base.model = new smf_instance(editor.gizmos.rotation.base.smf);
+		
+		var xMat = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, -1);
+		var yMat = matrix_build(0, 0, 0, 0, 0, 90, 1, 1, -1);
+		var zMat = matrix_build(0, 0, 0, 0, 270, 0, 1, 1, -1);
+		
+		editor.gizmos.rotation.x = cm_add(editor.gizmos.rotation.base.cm, cm_dynamic(editor.gizmos.rotation.base.col, xMat, true, CM_GROUP_SOLID));
+		editor.gizmos.rotation.y = cm_add(editor.gizmos.rotation.base.cm, cm_dynamic(editor.gizmos.rotation.base.col, yMat, true, CM_GROUP_SOLID));
+		editor.gizmos.rotation.z = cm_add(editor.gizmos.rotation.base.cm, cm_dynamic(editor.gizmos.rotation.base.col, zMat, true, CM_GROUP_SOLID));
+		
+		cm_custom_parameter_set(editor.gizmos.rotation.x, "x");
+		cm_custom_parameter_set(editor.gizmos.rotation.y, "y");
+		cm_custom_parameter_set(editor.gizmos.rotation.z, "z");
 	}
 }

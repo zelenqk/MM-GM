@@ -2,10 +2,12 @@ delta = (delta_time / 1000000) / targetDelta;
 
 if (room = rmEditor){
 	viewPir = point_in_rectangle(device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), view.x, view.y, view.x + view.width, view.y + view.height)
-
+	
 	if (keyboard_check_pressed(ord("S")) and keyboard_check(vk_control)) save_map();
 	if (keyboard_check_pressed(ord("Z")) and keyboard_check(vk_control)) undo();
 	if (keyboard_check_pressed(ord("Y")) and keyboard_check(vk_control)) redo();
+	if (keyboard_check_pressed(ord("C")) and keyboard_check(vk_control)) copy();
+	if (keyboard_check_pressed(ord("V")) and keyboard_check(vk_control)) paste();
 
 	if (keyboard_check_pressed(vk_delete) and editor.selected != noone){
 		instance_destroy(editor.selected);
@@ -91,18 +93,21 @@ if (room = rmEditor){
 		case "x":
 			if (editor.gizmos.type == "pos") editor.selected.x += (newX - editor.gizmos.lock[1]) / 100;
 			if (editor.gizmos.type == "scale") editor.selected.xScale += (newX - editor.gizmos.lock[1]) / 100;
+			if (editor.gizmos.type == "rotation") editor.selected.xRotation -= window_mouse_get_delta_x();
 			
 			editor.gizmos.lock[1] = newX;
 			break;
 		case "y":
 			if (editor.gizmos.type == "pos") editor.selected.y += (newY - editor.gizmos.lock[2]) / 100;
 			if (editor.gizmos.type == "scale") editor.selected.yScale += (newY - editor.gizmos.lock[2]) / 100;
+			if (editor.gizmos.type == "rotation") editor.selected.yRotation -= window_mouse_get_delta_x();
 			
 			editor.gizmos.lock[2] = newY;
 			break;
 		case "z":
 			if (editor.gizmos.type == "pos") editor.selected.z += (newZ - editor.gizmos.lock[3]) / 100;
 			if (editor.gizmos.type == "scale") editor.selected.zScale += (newZ - editor.gizmos.lock[3]) / 100;
+			if (editor.gizmos.type == "rotation") editor.selected.zRotation -= window_mouse_get_delta_x();
 			
 			editor.gizmos.lock[3] = newZ;
 			break;
