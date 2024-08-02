@@ -13,7 +13,7 @@ if (room == rmEditor){
 			shader_reset();
 			
 			if (mouse_check_button_released(mb_left)){
-				instance_create_depth(cm_ray_get_x(ray), cm_ray_get_y(ray), -cm_ray_get_z(ray), oModel, {"z": cm_ray_get_z(ray), "model": inMouse.path});
+				instance_create_depth(cm_ray_get_x(ray), cm_ray_get_y(ray), cm_ray_get_z(ray), oModel, {"z": cm_ray_get_z(ray), "model": inMouse.path});
 				
 				inMouse = noone;
 			}

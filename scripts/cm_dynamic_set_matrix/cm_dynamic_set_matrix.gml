@@ -1,32 +1,39 @@
 function cm_dynamic_set_matrix(dynamic, matrix, moving) 
-{	
-	var M = CM_DYNAMIC_M;
-	var I = CM_DYNAMIC_I;
-	var P = CM_DYNAMIC_P;
-	CM_DYNAMIC_MOVING = moving;
-	
-	array_copy(M, 0, matrix, 0, 16);
-	
-	// Assuming M needs to be adjusted to align with the expected forward/up directions:
-	// Example: if forward should be along the Z-axis but is currently along the Y-axis, swap Y and Z
+{
+    var M = CM_DYNAMIC_M;
+    var I = CM_DYNAMIC_I;
+    var P = CM_DYNAMIC_P;
+    CM_DYNAMIC_MOVING = moving;
+
+    array_copy(M, 0, matrix, 0, 16);
 	swap_axes(M, "y", "z"); // Custom function to swap axes
 
-	var scaleX = point_distance_3d(0, 0, 0, M[0], M[1], M[2]);
-	var scaleY = point_distance_3d(0, 0, 0, M[4], M[5], M[6]);
-	var scaleZ = point_distance_3d(0, 0, 0, M[8], M[9], M[10]);
+    // Calculate the scales based on the matrix columns
+    var xScale = point_distance_3d(0, 0, 0, M[0], M[1], M[2]);
+    var yScale = point_distance_3d(0, 0, 0, M[4], M[5], M[6]);
+    var zScale = point_distance_3d(0, 0, 0, M[8], M[9], M[10]);
 
-	CM_DYNAMIC_SCALE_X = scaleX;
-	CM_DYNAMIC_SCALE_Y = scaleY;
-	CM_DYNAMIC_SCALE_Z = scaleZ;
+    // Instead of taking the absolute value, keep the scale as-is to maintain negative values
+    CM_DYNAMIC_SCALE_X = xScale;
+    CM_DYNAMIC_SCALE_Y = yScale;
+    CM_DYNAMIC_SCALE_Z = zScale;
 
-	cm_matrix_orthogonalize(M);
-	cm_matrix_scale(M, scaleX, scaleY, scaleZ);
+    // Orthogonalize the matrix
+    cm_matrix_orthogonalize(M);
 
-	array_copy(P, 0, I, 0, 16);
-	cm_matrix_invert_orientation(M, I);
+    // Scale the matrix, including any negative scales to maintain mirroring
+    cm_matrix_scale(M, xScale, yScale, zScale);
 	
-	__cmi_dynamic_update_aabb(dynamic);
+    // Store the previous inverse matrix
+    array_copy(P, 0, I, 0, 16);
+
+    // Invert the orientation matrix for collision detection
+    cm_matrix_invert_orientation(M, I);
+
+    // Update the AABB (Axis-Aligned Bounding Box)
+    __cmi_dynamic_update_aabb(dynamic);
 }
+
 
 function swap_axes(matrix, axis1, axis2) 
 {

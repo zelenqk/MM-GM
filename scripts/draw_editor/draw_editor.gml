@@ -54,7 +54,21 @@ function draw_editor(){
 	
 	if (surface_exists(view_surface_id[0])){
 		
+		if (!surface_exists(editor.surface) and window_has_focus()) editor.surface = surface_create_c(view.width, view.height);
+
+		surface_set_target(editor.surface){
+			matrix_set(matrix_view, camera_get_view_mat(view_camera[0]));
+			matrix_set(matrix_projection, camera_get_proj_mat(view_camera[0]));
+			
+			draw_clear_alpha(c_black, 0);
+			
+			draw_editor_gizmos();
+			
+			surface_reset_target();
+		}
+		
 		draw_surface(view_surface_id[0], view.x, view.y);
+		if (surface_exists(editor.surface) and editor.selected != noone) draw_surface(editor.surface, view.x, view.y);
 	}else if (window_has_focus()){
 		view_surface_id[0] = surface_create_c(view.width, view.height);
 	}

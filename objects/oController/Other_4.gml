@@ -35,6 +35,7 @@ case rmEditor:
 		"clipboard": noone,
 		"undo": [],
 		"redo": [],
+		"surface": noone,
 		"viewCam": {
 			"x": 0,
 			"y": 0,
@@ -60,7 +61,7 @@ case rmEditor:
 	for(var i = 0; i < array_length(mapData.objects); i++){
 		var object = mapData.objects[i];
 		
-		instance_create_depth(object.x, object.y, -object.z, oModel, object);
+		instance_create_depth(object.x, object.y, object.z, oModel, object);
 	}
 
 	break;
