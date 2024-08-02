@@ -12,9 +12,13 @@ if (room = rmEditor){
 	if (keyboard_check_pressed(vk_delete) and editor.selected != noone){
 		instance_destroy(editor.selected);
 		editor.selected = noone;
+		
+		for(var i = 0; i < array_length(sidebar.content); i++){
+			sidebar.content[i].visible = editor.selected != noone;
+		}
 	}
 
-	if (viewPir){
+	if (viewPir and view.enabled == false){
 		if (mouse_check_button_pressed(mb_left)){
 			var object = 0;
 			

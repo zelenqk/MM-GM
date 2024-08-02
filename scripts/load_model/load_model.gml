@@ -1,5 +1,8 @@
-globalvar models;
+globalvar models, iconAABB, iconCamera, iconSurface;
 models = ds_map_create();
+iconAABB = [-1, -1, -1, 1, 1, 1];
+iconCamera = camera_create();
+iconSurface = surface_create(128, 128);
 
 function load_model(path = noone){
 	if (path == noone) path = get_open_filename("models|*.obj;*.smf*", "");
@@ -55,6 +58,14 @@ function load_model(path = noone){
 			assetBrowser.content[array_length(assetBrowser.content)] = models[? path];
 			break;
 		}
+		
+		if (models[? path] == undefined){
+			show_debug_message("couldnt load model - " + path);
+			
+			return noone;
+		}
+		
+		generate_model_icon(models[? path]);
 	}
 	
 	return models[? path];

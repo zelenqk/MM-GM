@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"map_aab",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"map_aab",
+  "parent":{
+    "name":"util",
+    "path":"folders/Scripts/util.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

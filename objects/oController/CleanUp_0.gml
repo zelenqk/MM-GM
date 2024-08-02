@@ -5,7 +5,11 @@ while (array_length(surfaces) > 1){
 
 var modelNames = ds_map_keys_to_array(models);
 for(var i = 0; i < array_length(modelNames); i++){
-	var model = models[? modelNames[i]].model;
+	var model = models[? modelNames[i]];
 	
-	smf_model_destroy(model, true);
+	if (model.icon != sMissingTexture) sprite_delete(model.icon);
+	
+	smf_model_destroy(model.model, true);
 }
+
+ds_map_destroy(models)

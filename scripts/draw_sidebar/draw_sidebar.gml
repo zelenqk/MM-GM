@@ -5,11 +5,10 @@ function draw_sidebar(){
 	draw_rectangle(modelViewer.x, modelViewer.y, modelViewer.x + modelViewer.width, modelViewer.y + modelViewer.height, 1);
 	
 	var localPadding = (modelViewer.height - modelViewer.iconSize) / 2;
-	var spr = (sprite_exists(modelViewer.icon) ? modelViewer.icon : sBG);
 	
-	draw_sprite_stretched(spr, 0, modelViewer.x + localPadding, modelViewer.y + localPadding, modelViewer.iconSize, modelViewer.iconSize);
+	draw_sprite_stretched(editor.selected.model.icon, 0, modelViewer.x + localPadding, modelViewer.y + localPadding, modelViewer.iconSize, modelViewer.iconSize);
 
-	draw_text_transformed(modelViewer.x + localPadding * 2 + modelViewer.iconSize, modelViewer.y + localPadding, "Model name", modelViewer.textScale, modelViewer.textScale, 0);
+	draw_text_transformed(modelViewer.x + localPadding * 2 + modelViewer.iconSize, modelViewer.y + localPadding, editor.selected.model.name, modelViewer.textScale, modelViewer.textScale, 0);
 
 	draw_rectangle(customVarContainer.x, customVarContainer.y, customVarContainer.x + customVarContainer.width, customVarContainer.y + customVarContainer.height, 1);
 	
