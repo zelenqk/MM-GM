@@ -20,7 +20,8 @@ Editing Tools:
     Save your progress quickly with Ctrl + S.
     Press "A" to switch to position mode
     Press "S" to switch to scaling mode
-
+    Press "R" to switch to rotation mode
+    
 File Management:
     Export your map through the File menu, generating a ZIP file that contains data.json and the associated 3D models.
     Import 3D models via the File menu for easy integration into your project.
