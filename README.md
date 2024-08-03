@@ -33,7 +33,12 @@ Maps are saved as a ZIP file containing:
 
 # Example of an array entry that is inside of data.json
 
-    data[i] = {
+    data.models[i] = {
+        "path": "models/model",
+        "name": "model.obj"
+    }
+    
+    data.objects[i] = {
       "x": 10.5,
       "y": 3.2,
       "z": 7.8,
@@ -46,10 +51,7 @@ Maps are saved as a ZIP file containing:
       "customVariables": {
         "varName": varValue    //When setting the value in the mapmaker it will check if the value can be real (integer) if not it will be a string
         }
-      "model": {
-        "name": "tree",
-        "path": "models/tree/tree.obj"
-      }
+      "model": 0 //index to a model in data.models array
     }
 
 # Extras
