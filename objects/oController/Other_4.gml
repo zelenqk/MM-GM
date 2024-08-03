@@ -35,6 +35,7 @@ case rmEditor:
 		"clipboard": noone,
 		"undo": [],
 		"redo": [],
+		"empty": cm_list(),
 		"surface": noone,
 		"viewCam": {
 			"x": 0,

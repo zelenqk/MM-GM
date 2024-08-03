@@ -10,7 +10,7 @@ function mbuff_load_obj_from_buffer(buffer, path = "", load_textures = true) {
 		www.thesnidr.com
 	*/
 	var currentMaterial = "Default";
-	var materialList = ds_list_create();
+	var materialList = [];
 	var mtlFname = "";
 
 	//Create the necessary lists
@@ -22,20 +22,20 @@ function mbuff_load_obj_from_buffer(buffer, path = "", load_textures = true) {
 
 	//Read .obj as textfile
 	var file = buffer_read(buffer, buffer_string);
-	while true
-	{
+	file = string_replace_all(file,"  "," ");
+	
+	while (true){
 		var pos = string_pos("\n", file);
 		var str = string_copy(file, 1, pos);
-		if (str == "")
-		{
+		
+		if (str == ""){
 			break;
 		}
+		
 		file = string_delete(file, 1, pos);
-		str = string_replace_all(str,"  "," ");
 		
 		//Different types of information in the .obj starts with different headers
-		switch string_copy(str, 1, 2)
-		{
+		switch string_copy(str, 1, 2){
 			//Load name of MTL library
 			case "mt":
 				mtlFname = string_delete(str, 1, string_pos(" ", str));
@@ -59,16 +59,15 @@ function mbuff_load_obj_from_buffer(buffer, path = "", load_textures = true) {
 			//Load material name
 			case "us":
 				currentMaterial = string_delete(str, 1, string_pos(" ", str));
-				if (ds_list_find_index(materialList, currentMaterial) < 0)
-				{
-					ds_list_add(materialList, currentMaterial);
-					ind = ds_list_find_index(materialList, currentMaterial);
+				if (array_get_index(materialList, currentMaterial) < 0){
+					var ind = array_length(materialList);
+					materialList[ind] = currentMaterial;
 					Fa[ind] = ds_list_create();
 				}
 				break;
 			//Load faces
 			case "f ":
-				m = max(ds_list_find_index(materialList, currentMaterial), 0);
+				m = max(array_get_index(materialList, currentMaterial), 0);
 				_mbuff_read_obj_face(Fa[m], str);
 				break;
 		}
@@ -79,13 +78,15 @@ function mbuff_load_obj_from_buffer(buffer, path = "", load_textures = true) {
 	bytesPerVert = mBuffBytesPerVert;
 	modelNum = array_length(Fa);
 	mBuff = array_create(modelNum);
-	for (var m = 0; m < modelNum; m ++)
-	{
+	
+	var m = 0;
+	repeat(modelNum){
 		F = Fa[m];
 		vertNum = ds_list_size(F);
 		mBuff[m] = buffer_create(vertNum * bytesPerVert, buffer_fixed, 1);
-		for (var f = 0; f < vertNum; f ++)
-		{
+		
+		var f = 0;
+		repeat(vertNum){
 			vnt = F[| f];
 		
 			//Add the vertex to the model buffer
@@ -112,29 +113,23 @@ function mbuff_load_obj_from_buffer(buffer, path = "", load_textures = true) {
 			buffer_write(mBuff[m], buffer_u32, c_white); //Colour, white by default
 			buffer_write(mBuff[m], buffer_u32, 0); //Bone indices
 			buffer_write(mBuff[m], buffer_u32, 1); //Bone weights
+			
+			f++
 		}
-	}
-
-	//Copy the contents of the materialList over to an array
-	n = ds_list_size(materialList);
-	var mtlNames = array_create(n);
-	for (var i = 0; i < n; i ++)
-	{
-		mtlNames[i] = materialList[| i];
+		
+		m++
 	}
 
 	ds_list_destroy(F);
 	ds_list_destroy(V);
 	ds_list_destroy(N);
 	ds_list_destroy(T);
-	ds_list_destroy(materialList);
 
 	//Load MTL file
 	var texPack = [];
-	if load_textures
-	{
+	if load_textures{
 		var mtlPath = filename_path(path) + filename_name(mtlFname);
-		texPack = texpack_load_mtl(mtlPath, mtlNames);
+		texPack = texpack_load_mtl(mtlPath, materialList);
 	}
 
 	//Return array containing the mBuff array, the name of the mtl file and the names of the materials of the submodels
