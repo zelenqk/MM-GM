@@ -1,7 +1,7 @@
 ### MM-GM is a 3D map-making tool built in GameMaker, designed to streamline the creation of environments using the SMF (Snidr Model Format) and Colmesh for collision handling, both developed by Snidr.
 ![](https://github.com/zelenqk/myGifz/blob/main/MM-GM%202024-08-03%2020-50-53.gif)
 
-# Smf models are currently NOT supported (Only works with obj's)
+# Smf models are now supported!
 
 ## Key Features:
 
