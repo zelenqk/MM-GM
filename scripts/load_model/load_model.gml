@@ -8,22 +8,23 @@ function load_model(path = noone){
 	if (path == noone) path = get_open_filename("models|*.obj;*.smf*", "");
 	if (path == "") return;
 	
-	var name = string_split(path, "\\", true);
-	name = name[array_length(name) - 1];
-	
-	var name = string_split(name, "/", true);
-	name = name[array_length(name) - 1];
-	
 	if (!ds_map_exists(models, path)){
-		var type = string_split(path, ".");
-		type = string_lower(type[array_length(type) - 1]);
+		var name = string_split(path, "\\", true);
+		name = name[array_length(name) - 1];
 		
-		switch(type){
-		case "smf":
+		var name = string_split(name, "/", true);
+		name = name[array_length(name) - 1];
+		
+		var matrix = matrix_build(0, 0, 0, 0, 0, 0, 1, 1, 1);
+		swap_axes(matrix, "y", "z");
+		
+		switch(filename_ext(path)){
+		case ".smf":
 			var model = smf_model_load(path);
 			if (model = -1) return noone;
 			
 			var tempInstance = new smf_instance(model);
+			var mBuff = cm_convert_smf(model);
 			
 			models[? path] = {
 				"model": model,
@@ -32,19 +33,19 @@ function load_model(path = noone){
 				"type": "smf",
 				"path": path,
 				"name": name,
+				"mBuff": noone,
 				"cm": cm_list(),
 			}
 			
-			cm_add_smf(models[? path].cm, model);
-			
-			assetBrowser.content[array_length(assetBrowser.content)] = models[? path];
+			cm_add_buffer(models[? path].cm, models[? path].mBuff, , matrix);
 			break;
-		case "obj":
+		case ".obj":
 			var model = smf_model_load_obj(path);
 			if (model = -1) return noone;
 			
 			var tempInstance = new smf_instance(model);
-			
+			var mBuff = cm_convert_smf(model);
+
 			models[? path] = {
 				"model": model,
 				"tempInstance": tempInstance,
@@ -52,18 +53,20 @@ function load_model(path = noone){
 				"type": "obj",
 				"path": path,
 				"name": name,
-				"cm": cm_load_obj(path),
+				"mBuff": mBuff,
+				"cm": cm_list(),
 			}
 			
-			assetBrowser.content[array_length(assetBrowser.content)] = models[? path];
+			cm_add_buffer(models[? path].cm, models[? path].mBuff, , matrix);
 			break;
 		}
 		
 		if (models[? path] == undefined){
 			show_debug_message("couldnt load model - " + path);
-			
 			return noone;
 		}
+		
+		assetBrowser.content[array_length(assetBrowser.content)] = models[? path];
 		
 		generate_model_icon(models[? path]);
 	}

@@ -10,6 +10,8 @@ for(var i = 0; i < array_length(modelNames); i++){
 	if (model.icon != sMissingTexture) sprite_delete(model.icon);
 	
 	smf_model_destroy(model.model, true);
+	
+	buffer_delete(model.mBuff)
 }
 
 ds_map_destroy(models)

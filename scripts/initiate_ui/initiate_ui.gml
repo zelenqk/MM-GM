@@ -382,7 +382,7 @@ function initiate_ui(){
 		
 		view_wport[0] = view.width
 		view_hport[0] = view.height
-		
+		swap_axes()
 		//create camera
 		camera_set_view_mat(view_camera[0], matrix_build_lookat(view.camX, view.camY, view.camZ, view.camX - dcos(view.lookDir) * dcos(view.lookPitch), view.camY - dsin(view.lookDir) * dcos(view.lookPitch), view.camZ, 0, 0, -1));
 		camera_set_proj_mat(view_camera[0], matrix_build_projection_perspective_fov(60, display_get_gui_width() / display_get_gui_height(), 1, -1));
