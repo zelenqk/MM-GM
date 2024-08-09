@@ -26,6 +26,7 @@
 		var currentMtl = "";
 		var mtlMap = ds_map_create();
 		var texMap = ds_map_create();
+		var texPathList = [];
 		var colMap = ds_map_create();
 
 		var line, terms, index;
@@ -100,6 +101,8 @@
 							texMap[? texName] = texpack_load_sprite(texPath);
 						}
 					}
+					
+					texPathList[array_length(texPathList)] = texPath;
 					break;
 			}
 		}
@@ -140,93 +143,7 @@
 /// @description texpack_load_mtl(fname, mtlNames)
 /// @param fname
 /// @param mtlNames
-function texpack_load_mtl(fname, mtlNames) {
-    // Open the .mtl file
-    var file = file_text_open_read(fname);
-    if (file < 0) {
-        show_debug_message("ERROR in texpack_load_mtl: Failed to load mtl file " + string(fname));
-        return [];
-    }
-    show_debug_message("texpack_load_mtl: Loading mtl file " + string(fname));
 
-    // Setup for processing
-    var path = filename_path(fname);
-    var currentMtl = "";
-    var mtlMap = ds_map_create();
-    var texMap = ds_map_create();
-    var colMap = ds_map_create();
-    var line, terms, texPath, texName;
 
-    while (!file_text_eof(file)) {
-        line = string_trim(string_replace_all(file_text_read_string(file), "  ", " "));
-        terms = string_split(line, " ");
-
-        switch (terms[0]) {
-            case "newmtl":
-                currentMtl = terms[1];
-                break;
-
-            case "Ka":
-                var col = colMap[? currentMtl] ?? [0, 0, 0, 1];
-                col[0] = real(terms[1]);
-                col[1] = real(terms[2]);
-                col[2] = real(terms[3]);
-                colMap[? currentMtl] = col;
-                break;
-
-            case "d":
-                var col = colMap[? currentMtl] ?? [0, 0, 0, 1];
-                col[3] = real(terms[1]);
-                colMap[? currentMtl] = col;
-                break;
-
-            case "map_Ka":
-            case "map_Kd":
-                texPath = path + filename_name(terms[1]);
-                texName = filename_name(filename_change_ext(texPath, ""));
-                mtlMap[? currentMtl] = texName;
-
-                if (!ds_map_exists(texMap, texName)) {
-                    var texId = texpack_load_sprite(texPath);
-                    if (texId < 0) {
-                        texPath = path + "textures\\" + filename_name(terms[1]);
-                        texId = texpack_load_sprite(texPath);
-                    }
-                    texMap[? texName] = texId;
-                }
-                break;
-        }
-    }
-    file_text_close(file);
-
-    // Assign textures to the texture pack
-    var texPack = array_create(array_length(mtlNames));
-    for (var i = 0; i < array_length(mtlNames); i++) {
-        var texName = mtlMap[? mtlNames[i]];
-        if (!is_undefined(texName)) {
-            texPack[i] = texMap[? texName];
-        } else {
-            var col = colMap[? mtlNames[i]];
-            if (!is_undefined(col)) {
-                var s = surface_create(4, 4);
-                surface_set_target(s);
-                draw_clear_alpha(make_color_rgb(col[0] * 255, col[1] * 255, col[2] * 255), col[3]);
-                surface_reset_target();
-                texPack[i] = sprite_create_from_surface(s, 0, 0, 4, 4, 0, 0, 0, 0);
-                surface_free(s);
-            } else {
-                texPack[i] = -1; // Fallback for missing texture/color
-            }
-        }
-    }
-
-    // Clean up
-    ds_map_destroy(mtlMap);
-    ds_map_destroy(texMap);
-    ds_map_destroy(colMap);
-
-    return texPack;
-}
-
-		return texPack;
+		return [texPack, texPathList];
 	}

@@ -6,9 +6,9 @@ function draw_sidebar(){
 	
 	var localPadding = (modelViewer.height - modelViewer.iconSize) / 2;
 	
-	draw_sprite_stretched(editor.selected.model.icon, 0, modelViewer.x + localPadding, modelViewer.y + localPadding, modelViewer.iconSize, modelViewer.iconSize);
+	draw_sprite_stretched(editor.selected[0].model.icon, 0, modelViewer.x + localPadding, modelViewer.y + localPadding, modelViewer.iconSize, modelViewer.iconSize);
 
-	draw_text_transformed(modelViewer.x + localPadding * 2 + modelViewer.iconSize, modelViewer.y + localPadding, editor.selected.model.name, modelViewer.textScale, modelViewer.textScale, 0);
+	draw_text_transformed(modelViewer.x + localPadding * 2 + modelViewer.iconSize, modelViewer.y + localPadding, editor.selected[0].model.name, modelViewer.textScale, modelViewer.textScale, 0);
 
 	draw_rectangle(customVarContainer.x, customVarContainer.y, customVarContainer.x + customVarContainer.width, customVarContainer.y + customVarContainer.height, 1);
 	
@@ -18,7 +18,7 @@ function draw_sidebar(){
 			var tx = paddingS;
 			var ty = paddingS;
 			
-			var vars = editor.selected.customVariables
+			var vars = editor.selected[0].customVariables
 			
 			for(var i = 0; i < array_length(vars); i++){
 				draw_sprite_stretched_ext(sBG, 0, tx, ty, customVarContainer.nameWidth, customVarContainer.varHeight, easeDarkGray, 1)

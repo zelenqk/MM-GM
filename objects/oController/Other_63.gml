@@ -7,7 +7,17 @@ case 0:	//TEXT INPUT
 	if (room == rmEditor){
 		switch (data){
 		case "search":
-		
+			var input = get_input(0, data);
+			var value = input.text;
+			
+			// Check if the input is empty
+			if (value == "") {
+			    // Return the original array if no input is provided
+			    assetBrowser.sorted = assetBrowser.content;
+			} else {
+			    // Otherwise, get the sorted array based on similarity to the input
+			    assetBrowser.sorted = filter_by_similarity(assetBrowser.content, value, 5);
+			}
 			break;
 		default:
 			if (editor.selected == noone) exit;

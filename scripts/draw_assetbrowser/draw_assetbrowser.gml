@@ -8,8 +8,8 @@ function draw_assetbrowser(){
 	
 	var count = assetBrowser.width / assetBrowser.slotSize;
 	
-	for(var i = 0; i < array_length(assetBrowser.content); i++){
-		var file = assetBrowser.content[i];
+	for(var i = 0; i < array_length(assetBrowser.sorted); i++){
+		var file = assetBrowser.sorted[i];
 		
 		var col = i mod count;
 		var row = i div count;

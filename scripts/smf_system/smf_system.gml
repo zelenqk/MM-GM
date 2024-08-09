@@ -269,6 +269,7 @@ function smf_model_load_obj(path)
 	if (!is_array(obj)){return -1;}
 	model.mBuff = obj[0];
 	model.texPack = obj[1];
+	model.texPackPath = obj[2];
 	model.vBuff = vbuff_create_from_mbuff(obj[0]);
 	return model;
 }

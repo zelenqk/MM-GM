@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"map_aab",
   "parent":{
-    "name":"util",
-    "path":"folders/Scripts/util.yy",
+    "name":"misc",
+    "path":"folders/Scripts/util/misc.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

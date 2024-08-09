@@ -55,6 +55,7 @@ function draw_editor(){
 	if (surface_exists(view_surface_id[0])){
 		
 		if (!surface_exists(editor.surface) and window_has_focus()) editor.surface = surface_create_c(view.width, view.height);
+		if (!surface_exists(editor.selectedSurf) and window_has_focus()) editor.selectedSurf = surface_create_c(view.width, view.height);
 
 		surface_set_target(editor.surface){
 			matrix_set(matrix_view, camera_get_view_mat(view_camera[0]));
@@ -62,12 +63,51 @@ function draw_editor(){
 			
 			draw_clear_alpha(c_black, 0);
 			
-			draw_editor_gizmos();
+			if (array_length(editor.selected) > 0) draw_editor_gizmos();
 			
 			surface_reset_target();
 		}
 		
+		surface_set_target(editor.selectedSurf){
+			matrix_set(matrix_view, camera_get_view_mat(view_camera[0]));
+			matrix_set(matrix_projection, camera_get_proj_mat(view_camera[0]));
+			
+			draw_clear_alpha(c_black, 0);
+			
+			for(var j = 0; j < array_length(editor.selected); j++){
+				var selMdl = editor.selected[j];
+				
+				with (selMdl){
+					// Before drawing your SMF object, set the texture size as a uniform
+					shader_set(sh_smf_static);
+					
+					// Draw the instance
+					modelMat = matrix_build(x, y, z, xRotation, yRotation, zRotation, xScale, yScale, -zScale);
+					
+					matrix_set(matrix_world, modelMat);
+					model.tempInstance.draw();
+					matrix_set(matrix_world, matrix_build_identity());
+					
+					shader_reset();
+				}
+			}
+			
+			surface_reset_target();
+		}
+		
+		// Draw the main surface first (if needed)
 		draw_surface(view_surface_id[0], view.x, view.y);
+		
+		// Check if the selected surface exists and is valid
+		if (surface_exists(editor.selectedSurf) and editor.selected != noone) {
+		    shader_set(shdSobel);
+		    shader_set_uniform_f(shader_get_uniform(shdSobel, "texSize"), surface_get_width(editor.selectedSurf), surface_get_height(editor.selectedSurf));
+		    
+		    draw_surface(editor.selectedSurf, view.x, view.y);
+			
+		    shader_reset();
+		}
+		
 		if (surface_exists(editor.surface) and editor.selected != noone) draw_surface(editor.surface, view.x, view.y);
 	}else if (window_has_focus()){
 		view_surface_id[0] = surface_create_c(view.width, view.height);

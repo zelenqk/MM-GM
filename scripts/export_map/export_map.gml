@@ -30,11 +30,14 @@ function export_map(){
         var modelName = string_replace(model.name, filename_ext(model.name), "");
         
         zip_add_file(zip, "models\\" + modelName + next + "\\" + modelName + filename_ext(model.name), model.path);
-        if file_exists(filenamePath + ".mtl") zip_add_file(zip, "models\\" + modelName + next + "\\" + modelName + ".mtl", filenamePath + ".mtl");
-        if file_exists(filenamePath + ".png") zip_add_file(zip, "models\\" + modelName + next + "\\" + modelName + ".png", filenamePath + ".png");
-        if file_exists(filenamePath + ".jpg") zip_add_file(zip, "models\\" + modelName + next + "\\" + modelName + ".jpg", filenamePath + ".jpg");
-        if file_exists(filenamePath + ".jpeg") zip_add_file(zip, "models\\" + modelName + next + "\\" + modelName + ".jpeg", filenamePath + ".jpg");
-        
+		
+		if (variable_struct_exists(model.model, "texPackPath")){
+			for(var j = 0; j < array_length(model.model.texPackPath); j++){
+				var texPath = model.model.texPackPath[j];
+				zip_add_file(zip, "models\\" + modelName + next + "\\" + filename_name(texPath), texPath);
+			}
+		}
+		
         modelNames[? model.path] = array_length(modelsArr); // Store index in the models array
         modelsArr[array_length(modelsArr)] = {
             "name": model.name,

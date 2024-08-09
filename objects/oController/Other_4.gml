@@ -29,7 +29,7 @@ case rmEditor:
 	viewPir = false;
 	
 	editor = {
-		"selected": noone,
+		"selected": [],
 		"level": cm_octree(128),
 		"saved": true,
 		"clipboard": noone,
@@ -48,6 +48,7 @@ case rmEditor:
 	}
 	
 	initiate_ui();
+	editor.selectedSurf = surface_create_c(view.width, view.height);
 
 	var mapDataF = file_text_open_read(projectPath + "/data.json");
 	var mapData = json_parse(file_text_read_string(mapDataF));

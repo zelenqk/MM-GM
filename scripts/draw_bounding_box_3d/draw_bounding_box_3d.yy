@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"save_map",
+  "%Name":"draw_bounding_box_3d",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"save_map",
+  "name":"draw_bounding_box_3d",
   "parent":{
     "name":"misc",
     "path":"folders/Scripts/util/misc.yy",

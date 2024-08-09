@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"save_map",
+  "%Name":"levenshtein",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"save_map",
+  "name":"levenshtein",
   "parent":{
     "name":"misc",
     "path":"folders/Scripts/util/misc.yy",

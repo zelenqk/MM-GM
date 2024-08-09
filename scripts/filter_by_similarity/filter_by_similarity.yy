@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"save_map",
+  "%Name":"filter_by_similarity",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"save_map",
+  "name":"filter_by_similarity",
   "parent":{
     "name":"misc",
     "path":"folders/Scripts/util/misc.yy",

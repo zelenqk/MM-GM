@@ -9,12 +9,12 @@ if (room = rmEditor){
 	if (keyboard_check_pressed(ord("C")) and keyboard_check(vk_control)) copy();
 	if (keyboard_check_pressed(ord("V")) and keyboard_check(vk_control)) paste();
 
-	if (keyboard_check_pressed(vk_delete) and editor.selected != noone){
-		instance_destroy(editor.selected);
-		editor.selected = noone;
+	if (keyboard_check_pressed(vk_delete) and array_length(editor.selected) > 0){
+		instance_destroy(editor.selected[0]);
+		editor.selected = [];
 		
 		for(var i = 0; i < array_length(sidebar.content); i++){
-			sidebar.content[i].visible = editor.selected != noone;
+			sidebar.content[i].visible = (array_length(editor.selected) > 0);
 		}
 	}
 
@@ -22,7 +22,7 @@ if (room = rmEditor){
 		if (mouse_check_button_pressed(mb_left)){
 			var object = 0;
 			
-			if (editor.selected != noone){
+			if (array_length(editor.selected) > 0){
 				var type = variable_struct_get(editor.gizmos, editor.gizmos.type);
 				var ray = raycast(type.base.cm);
 				
@@ -38,7 +38,7 @@ if (room = rmEditor){
 					//undo(); stuff
 					var variable = editor.gizmos.lock[0] + (editor.gizmos.type != "pos" ? string_upper(string_copy(editor.gizmos.type, 1, 1)) + string_copy(editor.gizmos.type, 2, string_length(editor.gizmos.type) - 1) : "");
 					
-					insert_action("modelUpdate", editor.selected, variable, variable_struct_get(editor.selected, variable));
+					insert_action("modelUpdate", editor.selected[0], variable, variable_struct_get(editor.selected[0], variable));
 				}
 			}
 			
@@ -49,23 +49,26 @@ if (room = rmEditor){
 				
 				if (object != 0){
 					object = cm_custom_parameter_get(object);
-					editor.selected = object.id;
+					editor.selected = [];
+					editor.selected[array_length(editor.selected)]= object.id;
 					editor.gizmos.type = "pos";
 				}else{
-					editor.selected = noone;
+					editor.selected = [];
 				}
 				
 				for(var i = 0; i < array_length(sidebar.content); i++){
-					sidebar.content[i].visible = editor.selected != noone;
+					sidebar.content[i].visible = (array_length(editor.selected) > 0);
 					
-					if (variable_struct_exists(editor.selected, sidebar.content[i].data)) sidebar.content[i].text = string(variable_struct_get(editor.selected, sidebar.content[i].data));
+					if (array_length(editor.selected) > 0 and variable_struct_exists(editor.selected[0], sidebar.content[i].data)) sidebar.content[i].text = string(variable_struct_get(editor.selected[0], sidebar.content[i].data));
 				}
 			}
 		}
 	}
 	
 	
-	if (editor.gizmos.lock != noone and editor.selected != noone){
+	if (editor.gizmos.lock != noone and (array_length(editor.selected) > 0)){
+		for(var j = 0; j < array_length(editor.selected); j++){
+		var selMdl = editor.selected[j];
 		var type = variable_struct_get(editor.gizmos, editor.gizmos.type);
 		
 		var ray = raycast_lock(cm_list(), 
@@ -95,23 +98,23 @@ if (room = rmEditor){
 
 		switch (editor.gizmos.lock[0]) {
 		case "x":
-			if (editor.gizmos.type == "pos") editor.selected.x += (newX - editor.gizmos.lock[1]) / 100;
-			if (editor.gizmos.type == "scale") editor.selected.xScale += (newX - editor.gizmos.lock[1]) / 100;
-			if (editor.gizmos.type == "rotation") editor.selected.xRotation -= window_mouse_get_delta_x();
+			if (editor.gizmos.type == "pos") selMdl.x += (newX - editor.gizmos.lock[1]) / 100;
+			if (editor.gizmos.type == "scale") selMdl.xScale += (newX - editor.gizmos.lock[1]) / 100;
+			if (editor.gizmos.type == "rotation") selMdl.xRotation -= window_mouse_get_delta_x();
 			
 			editor.gizmos.lock[1] = newX;
 			break;
 		case "y":
-			if (editor.gizmos.type == "pos") editor.selected.y += (newY - editor.gizmos.lock[2]) / 100;
-			if (editor.gizmos.type == "scale") editor.selected.yScale += (newY - editor.gizmos.lock[2]) / 100;
-			if (editor.gizmos.type == "rotation") editor.selected.yRotation -= window_mouse_get_delta_x();
+			if (editor.gizmos.type == "pos") selMdl.y += (newY - editor.gizmos.lock[2]) / 100;
+			if (editor.gizmos.type == "scale") selMdl.yScale += (newY - editor.gizmos.lock[2]) / 100;
+			if (editor.gizmos.type == "rotation") selMdl.yRotation -= window_mouse_get_delta_x();
 			
 			editor.gizmos.lock[2] = newY;
 			break;
 		case "z":
-			if (editor.gizmos.type == "pos") editor.selected.z += (newZ - editor.gizmos.lock[3]) / 100;
-			if (editor.gizmos.type == "scale") editor.selected.zScale += (newZ - editor.gizmos.lock[3]) / 100;
-			if (editor.gizmos.type == "rotation") editor.selected.zRotation -= window_mouse_get_delta_x();
+			if (editor.gizmos.type == "pos") selMdl.z += (newZ - editor.gizmos.lock[3]) / 100;
+			if (editor.gizmos.type == "scale") selMdl.zScale += (newZ - editor.gizmos.lock[3]) / 100;
+			if (editor.gizmos.type == "rotation") selMdl.zRotation -= window_mouse_get_delta_x();
 			
 			editor.gizmos.lock[3] = newZ;
 			break;
@@ -119,21 +122,25 @@ if (room = rmEditor){
 		
 		//UPDATE TEXT INPUT BOXES
 		for(var i = 0; i < array_length(sidebar.content); i++){
-			if (variable_struct_exists(editor.selected, sidebar.content[i].data)) sidebar.content[i].text = string(variable_struct_get(editor.selected, sidebar.content[i].data));
+			if (variable_struct_exists(selMdl, sidebar.content[i].data)) sidebar.content[i].text = string(variable_struct_get(selMdl, sidebar.content[i].data));
 		}
 		
 		lock_mouse();
+		}
 	}
 	
 	if (mouse_check_button_released(mb_left)){
-		if (editor.gizmos.lock != noone and editor.selected != noone){
+		if (editor.gizmos.lock != noone and array_length(editor.selected) > 0){
 			
 			if (array_length(editor.undo) > 0 and editor.undo[0].oldValue == variable_struct_get(editor.undo[0].model, editor.undo[0].variable)){
 				array_delete(editor.undo, 0, 1);
 				editor.saved = true;
 			}
 			
-			update_model(editor.selected);
+			for(var j = 0; j < array_length(editor.selected); j++){
+				var selMdl = editor.selected[j];
+				update_model(selMdl);
+			}
 			
 			editor.gizmos.lock = noone;
 			

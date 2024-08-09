@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"string_copy_width",
   "parent":{
-    "name":"util",
-    "path":"folders/Scripts/util.yy",
+    "name":"misc",
+    "path":"folders/Scripts/util/misc.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

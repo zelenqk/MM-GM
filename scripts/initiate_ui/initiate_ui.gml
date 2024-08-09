@@ -353,6 +353,7 @@ function initiate_ui(){
 		assetBrowser.slotSize = (assetBrowser.height - paddingM) / 3;
 		
 		assetBrowser.textScale = (assetBrowser.slotSize / 5) / string_height("|");
+		assetBrowser.sorted = assetBrowser.content;
 		
 		var assetBrowserSearchField = {
 			"width": assetBrowser.width,

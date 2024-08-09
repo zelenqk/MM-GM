@@ -5,7 +5,7 @@ case rmMainMenu:
 case rmEditor:
 	draw_editor();
 	
-	if (editor.selected != noone) draw_sidebar();
+	if (array_length(editor.selected) > 0) draw_sidebar();
 	
 	draw_assetbrowser();
 	

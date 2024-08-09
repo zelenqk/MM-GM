@@ -127,11 +127,14 @@ function mbuff_load_obj_from_buffer(buffer, path = "", load_textures = true) {
 
 	//Load MTL file
 	var texPack = [];
+	var texPackPath = [];
 	if load_textures{
 		var mtlPath = filename_path(path) + filename_name(mtlFname);
 		texPack = texpack_load_mtl(mtlPath, materialList);
+		if (array_length(texPack) > 1) texPackPath = texPack[1];
+		if (array_length(texPack) > 0) texPack = texPack[0];
 	}
 
 	//Return array containing the mBuff array, the name of the mtl file and the names of the materials of the submodels
-	return [mBuff, texPack];
+	return [mBuff, texPack, texPackPath];
 }

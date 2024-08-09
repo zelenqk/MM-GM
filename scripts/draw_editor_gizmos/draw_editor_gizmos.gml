@@ -1,9 +1,7 @@
 // Script assets have changed for v2.3.0 see
 // https://help.yoyogames.com/hc/en-us/articles/360005277377 for more information
 function draw_editor_gizmos(){
-	if (editor.selected == noone) return;
-	
-	if (view.enabled == false and editor.selected != noone and editor.gizmos.lock == noone and !keyboard_check(vk_control)){
+	if (view.enabled == false and (array_length(editor.selected) > 0) and editor.gizmos.lock == noone and !keyboard_check(vk_control)){
 		if (keyboard_check_pressed(ord("A"))) editor.gizmos.type = "pos";
 		if (keyboard_check_pressed(ord("S"))) editor.gizmos.type = "scale";
 		if (keyboard_check_pressed(ord("R"))) editor.gizmos.type = "rotation";
@@ -11,7 +9,7 @@ function draw_editor_gizmos(){
 	
 	var yellow = [1, 1, 20 / 255, 1];
 	
-	var gismoScale = point_distance_3d(editor.selected.x, editor.selected.y, editor.selected.z, view.camX, view.camY, view.camZ) / 12.5;
+	var gismoScale = point_distance_3d(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z, view.camX, view.camY, view.camZ) / 12.5;
 	
 	var col = shader_get_uniform(sh_smf_color, "u_uColor");
 	shader_set(sh_smf_color);
@@ -20,7 +18,7 @@ function draw_editor_gizmos(){
 	shader_set_uniform_f_array(col, [1, 0, 0, 1]);
 	if (editor.gizmos.lock != noone and editor.gizmos.lock[0] = "x") shader_set_uniform_f_array(col, yellow);
 	
-	matrix_set(matrix_world, matrix_build(editor.selected.x, editor.selected.y, editor.selected.z, 0, 0, 0, gismoScale, gismoScale, -gismoScale));
+	matrix_set(matrix_world, matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z, 0, 0, 0, gismoScale, gismoScale, -gismoScale));
 	switch (editor.gizmos.type){
 	case "pos":
 		editor.gizmos.pos.base.model.draw();
@@ -29,7 +27,7 @@ function draw_editor_gizmos(){
 		editor.gizmos.scale.base.model.draw();
 		break;
 	case "rotation":
-		matrix_set(matrix_world, matrix_build(editor.selected.x, editor.selected.y, editor.selected.z, 0, 0, editor.selected.zRotation + 90, gismoScale, gismoScale, gismoScale));
+		matrix_set(matrix_world, matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z, 0, 0, editor.selected[0].zRotation + 90, gismoScale, gismoScale, gismoScale));
 		editor.gizmos.rotation.base.model.draw();
 		break;
 	}
@@ -38,7 +36,7 @@ function draw_editor_gizmos(){
 	shader_set_uniform_f_array(col, [0, 1, 0, 1]);
 	if (editor.gizmos.lock != noone and editor.gizmos.lock[0] = "y") shader_set_uniform_f_array(col, yellow);
 	
-	matrix_set(matrix_world, matrix_build(editor.selected.x, editor.selected.y, editor.selected.z, 0, 0, -90, gismoScale, gismoScale, -gismoScale));
+	matrix_set(matrix_world, matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z, 0, 0, -90, gismoScale, gismoScale, -gismoScale));
 	switch (editor.gizmos.type){
 	case "pos":
 		editor.gizmos.pos.base.model.draw();
@@ -47,7 +45,7 @@ function draw_editor_gizmos(){
 		editor.gizmos.scale.base.model.draw();
 		break;
 	case "rotation":
-		matrix_set(matrix_world, matrix_build(editor.selected.x, editor.selected.y, editor.selected.z, 0, 0, editor.selected.zRotation, gismoScale, gismoScale, gismoScale));
+		matrix_set(matrix_world, matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z, 0, 0, editor.selected[0].zRotation, gismoScale, gismoScale, gismoScale));
 		editor.gizmos.rotation.base.model.draw();
 		break;
 	}
@@ -56,7 +54,7 @@ function draw_editor_gizmos(){
 	shader_set_uniform_f_array(col, [0, 0, 1, 1]);
 	if (editor.gizmos.lock != noone and editor.gizmos.lock[0] = "z") shader_set_uniform_f_array(col, yellow);
 	
-	matrix_set(matrix_world, matrix_build(editor.selected.x, editor.selected.y, editor.selected.z, 0, 270, 0, gismoScale, gismoScale, -gismoScale));
+	matrix_set(matrix_world, matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z, 0, 270, 0, gismoScale, gismoScale, -gismoScale));
 	switch (editor.gizmos.type){
 	case "pos":
 		editor.gizmos.pos.base.model.draw();
@@ -65,7 +63,7 @@ function draw_editor_gizmos(){
 		editor.gizmos.scale.base.model.draw();
 		break;
 	case "rotation":
-		matrix_set(matrix_world, matrix_build(editor.selected.x, editor.selected.y, editor.selected.z, 90, 0, 0, gismoScale, gismoScale, gismoScale));
+		matrix_set(matrix_world, matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z, 90, 0, 0, gismoScale, gismoScale, gismoScale));
 		editor.gizmos.rotation.base.model.draw();
 		break;
 	}
@@ -74,9 +72,9 @@ function draw_editor_gizmos(){
 	shader_reset();
 		
 	//COLMESH STuFF
-	var xMat = matrix_build(editor.selected.x, editor.selected.y, editor.selected.z,  0, 0, 0, gismoScale, gismoScale, -gismoScale);
-	var yMat = matrix_build(editor.selected.x, editor.selected.y, editor.selected.z,  0, 0, -90, gismoScale, gismoScale, -gismoScale);
-	var zMat = matrix_build(editor.selected.x, editor.selected.y, editor.selected.z,  0, 270, 0, gismoScale, gismoScale, -gismoScale);
+	var xMat = matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z,  0, 0, 0, gismoScale, gismoScale, -gismoScale);
+	var yMat = matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z,  0, 0, -90, gismoScale, gismoScale, -gismoScale);
+	var zMat = matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z,  0, 270, 0, gismoScale, gismoScale, -gismoScale);
 	
 	switch(editor.gizmos.type){
 	case "pos":
@@ -98,9 +96,9 @@ function draw_editor_gizmos(){
 		cm_dynamic_update_container(editor.gizmos.scale.z, editor.gizmos.scale.base.cm);
 		break;
 	case "rotation":
-		var xMat = matrix_build(editor.selected.x, editor.selected.y, editor.selected.z, 0, 0, editor.selected.zRotation + 90, gismoScale, gismoScale, -gismoScale);
-		var yMat = matrix_build(editor.selected.x, editor.selected.y, editor.selected.z, 0, 0, editor.selected.zRotation, gismoScale, gismoScale, -gismoScale);
-		var zMat = matrix_build(editor.selected.x, editor.selected.y, editor.selected.z, 90, 0, 0, gismoScale, gismoScale, -gismoScale);
+		var xMat = matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z, 0, 0, editor.selected[0].zRotation + 90, gismoScale, gismoScale, -gismoScale);
+		var yMat = matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z, 0, 0, editor.selected[0].zRotation, gismoScale, gismoScale, -gismoScale);
+		var zMat = matrix_build(editor.selected[0].x, editor.selected[0].y, editor.selected[0].z, 90, 0, 0, gismoScale, gismoScale, -gismoScale);
 
 		cm_dynamic_set_matrix(editor.gizmos.rotation.x, xMat, false);
 		cm_dynamic_set_matrix(editor.gizmos.rotation.y, yMat, false);
