@@ -20,25 +20,27 @@ case 0:	//TEXT INPUT
 			}
 			break;
 		default:
-			if (editor.selected == noone) exit;
+			if (array_length(editor.selected) < 0) exit;
 			
 			var input = get_input(0, data);
-			var value = input.text
+			if (input == noone) exit;
+			var value = input.text;
 			
 			try{
 				value = real(value);	
 			}catch(e){
-				show_debug_message("couldnt set data to object");
-				exit;
+				value = 0;
+				show_debug_message("couldnt set data. Defaulting to 0")
 			}
-				
-			if (variable_struct_get(editor.selected, data) != value){
-				insert_action("modelUpdate", editor.selected, data, variable_struct_get(editor.selected, data));	
+			
+			input.text = string(value);
+			
+			if (variable_struct_get(editor.selected[0], data) != value){
+				insert_action("modelUpdate", editor.selected[0], data, variable_struct_get(editor.selected[0], data));	
 
-				variable_struct_set(editor.selected, data, value);
+				variable_struct_set(editor.selected[0], data, value);
 				
-				update_model(editor.selected);
-				
+				update_model(editor.selected[0]);
 			}
 			break;
 		}
@@ -119,7 +121,7 @@ case 1:	//BUTTONS
 			}
 			
 			try{
-				editor.selected.customVariables[array_length(editor.selected.customVariables)] = variable;
+				editor.selected[0].customVariables[array_length(editor.selected.customVariables)] = variable;
 			}catch(e){
 				show_debug_message(e);
 			}

@@ -348,6 +348,9 @@ function initiate_ui(){
 			"width": display_get_gui_width() - sidebar.width,
 			"height": display_get_gui_height() / 3,
 			"content": [],
+			"browserSurface": noone,
+			"sliderY": 0,
+			"deltaY": noone,
 		}
 		assetBrowser.y = display_get_gui_height() - assetBrowser.height;
 		assetBrowser.slotSize = (assetBrowser.height - paddingM) / 3;
